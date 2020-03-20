@@ -20,6 +20,9 @@ namespace Task2_csvToXml {
                 }
             }
 
+            var parsedDate = DateTime.Parse("2000-02-12");
+
+
             var list = new HashSet<Student>(new CustomComparer());
             var st = new Student{
                 IndexNumber = " s12345",
