@@ -1,0 +1,10 @@
+/Users/kamilsikora/Documents/Studia/APBD/Dotnet-Tasks/Task2(csvToXml)/bin/Debug/netcoreapp3.1/Task2(csvToXml).deps.json
+/Users/kamilsikora/Documents/Studia/APBD/Dotnet-Tasks/Task2(csvToXml)/bin/Debug/netcoreapp3.1/Task2(csvToXml).runtimeconfig.json
+/Users/kamilsikora/Documents/Studia/APBD/Dotnet-Tasks/Task2(csvToXml)/bin/Debug/netcoreapp3.1/Task2(csvToXml).runtimeconfig.dev.json
+/Users/kamilsikora/Documents/Studia/APBD/Dotnet-Tasks/Task2(csvToXml)/bin/Debug/netcoreapp3.1/Task2(csvToXml).dll
+/Users/kamilsikora/Documents/Studia/APBD/Dotnet-Tasks/Task2(csvToXml)/bin/Debug/netcoreapp3.1/Task2(csvToXml).pdb
+/Users/kamilsikora/Documents/Studia/APBD/Dotnet-Tasks/Task2(csvToXml)/obj/Debug/netcoreapp3.1/Task2(csvToXml).csprojAssemblyReference.cache
+/Users/kamilsikora/Documents/Studia/APBD/Dotnet-Tasks/Task2(csvToXml)/obj/Debug/netcoreapp3.1/Task2(csvToXml).AssemblyInfoInputs.cache
+/Users/kamilsikora/Documents/Studia/APBD/Dotnet-Tasks/Task2(csvToXml)/obj/Debug/netcoreapp3.1/Task2(csvToXml).AssemblyInfo.cs
+/Users/kamilsikora/Documents/Studia/APBD/Dotnet-Tasks/Task2(csvToXml)/obj/Debug/netcoreapp3.1/Task2(csvToXml).dll
+/Users/kamilsikora/Documents/Studia/APBD/Dotnet-Tasks/Task2(csvToXml)/obj/Debug/netcoreapp3.1/Task2(csvToXml).pdb
