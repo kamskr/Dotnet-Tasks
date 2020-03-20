@@ -17,24 +17,31 @@ namespace Task2_csvToXml {
                 string line = null;
                 while((line = stream.ReadLine()) != null){
                     string[] columns = line.Split(',');
-                    Console.WriteLine(columns);
                 }
             }
 
-            var list = new List<Student>();
+            var list = new HashSet<Student>(new CustomComparer());
             var st = new Student{
                 IndexNumber = " s12345",
                 Email = "test@test.com",
                 FirstName = "Bob",
                 LastName = "Brown"
             };
-
+            var st2 = new Student{
+                IndexNumber = " s12345",
+                Email = "test@test.com",
+                FirstName = "Bob",
+                LastName = "Brown"
+            };
 
             list.Add(st);
+            if (!list.Add(st2)){
+                Console.WriteLine("Duplicate!");
+            }
 
             //open file writer and create the file
             FileStream writer = new FileStream(@"result.xml", FileMode.Create);
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Student>),new XmlRootAttribute("university"));
+            XmlSerializer serializer = new XmlSerializer(typeof(HashSet<Student>),new XmlRootAttribute("university"));
             serializer.Serialize(writer, list);
         }
     }
