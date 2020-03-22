@@ -1,0 +1,18 @@
+{
+    "students":[{
+        "IndexNumber":"4749",
+        "FirstName":"Justyna",
+        "LastName":"Kowalski30",
+        "BirthDate":"2000-02-12",
+        "Email":"30@pjwstk.edu.pl",
+        "MothersName":"Alina",
+        "FathersName":"Adam",
+        "studies":{
+            "StudiesName":"Sztuka Nowych Medi\u00F3w uzupe\u0142niaj\u0105ce magisterskie",
+            "StudiesMode":"Dzienne"
+    }}],
+            
+    "activeStudies":[{
+        "Name":"Sztuka Nowych Medi\u00F3w uzupe\u0142niaj\u0105ce magisterskie",
+        "NumberOfStudents":1
+    }]}

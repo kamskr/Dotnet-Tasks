@@ -1,0 +1,10 @@
+/Users/kamilsikora/Documents/Studia/APBD/Task1/task1/bin/Debug/netcoreapp3.1/task1.deps.json
+/Users/kamilsikora/Documents/Studia/APBD/Task1/task1/bin/Debug/netcoreapp3.1/task1.runtimeconfig.json
+/Users/kamilsikora/Documents/Studia/APBD/Task1/task1/bin/Debug/netcoreapp3.1/task1.runtimeconfig.dev.json
+/Users/kamilsikora/Documents/Studia/APBD/Task1/task1/bin/Debug/netcoreapp3.1/task1.dll
+/Users/kamilsikora/Documents/Studia/APBD/Task1/task1/bin/Debug/netcoreapp3.1/task1.pdb
+/Users/kamilsikora/Documents/Studia/APBD/Task1/task1/obj/Debug/netcoreapp3.1/task1.csprojAssemblyReference.cache
+/Users/kamilsikora/Documents/Studia/APBD/Task1/task1/obj/Debug/netcoreapp3.1/task1.AssemblyInfoInputs.cache
+/Users/kamilsikora/Documents/Studia/APBD/Task1/task1/obj/Debug/netcoreapp3.1/task1.AssemblyInfo.cs
+/Users/kamilsikora/Documents/Studia/APBD/Task1/task1/obj/Debug/netcoreapp3.1/task1.dll
+/Users/kamilsikora/Documents/Studia/APBD/Task1/task1/obj/Debug/netcoreapp3.1/task1.pdb
