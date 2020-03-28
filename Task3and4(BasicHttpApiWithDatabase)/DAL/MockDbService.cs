@@ -8,7 +8,7 @@ namespace Task3.DAL {
 
         private static SqlConnection _sqlConnection;
         static MockDbService() {
-           _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=RGFIsland1738;");
+           _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=*****;"); // I was using my local mssql server
         }
         public IEnumerable<Student> GetStudents() {
             var students = new List<Student>();
