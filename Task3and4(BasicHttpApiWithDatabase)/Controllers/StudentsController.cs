@@ -7,7 +7,9 @@ using Task3.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data;
 using Task3.DAL;
+using Microsoft.Data.SqlClient;
 
 namespace Task3.Controllers {
 
@@ -23,7 +25,7 @@ namespace Task3.Controllers {
         }
 
         [HttpGet]
-        public IActionResult GetStudentsOrder(string orderBy){
+        public IActionResult GetStudents(){
             return Ok(_dbService.GetStudents());
         }
 
@@ -37,28 +39,28 @@ namespace Task3.Controllers {
             return NotFound("Nie znaleziono studenta");
         }
 
-        [HttpPost]
-        public IActionResult CreateStudent(Student student) {
-            student.IndexNumber = $"s{new Random().Next(1, 20000)}";
-            return Ok(student);
-        }
+        // [HttpPost]
+        // public IActionResult CreateStudent(Student student) {
+        //     student.IndexNumber = $"s{new Random().Next(1, 20000)}";
+        //     return Ok(student);
+        // }
 
-        [HttpPut("{id}")]
-        public IActionResult PutStudent(int id) {
-            //put is used to update
-            Console.WriteLine("Updating student student");
-            student.IdStudent = id;
-            return Ok("Student Updated!");
-        }
+        // [HttpPut("{id}")]
+        // public IActionResult PutStudent(int id) {
+        //     //put is used to update
+        //     Console.WriteLine("Updating student student");
+        //     student.IdStudent = id;
+        //     return Ok("Student Updated!");
+        // }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteStudent(int id) {
-            //put is used to update
-            if(student.IdStudent == id){
-                student = null;
-            }
-            return Ok("Student Deleted!");
-        }
+        // [HttpDelete("{id}")]
+        // public IActionResult DeleteStudent(int id) {
+        //     //put is used to update
+        //     if(student.IdStudent == id){
+        //         student = null;
+        //     }
+        //     return Ok("Student Deleted!");
+        // }
     }
 }
 
