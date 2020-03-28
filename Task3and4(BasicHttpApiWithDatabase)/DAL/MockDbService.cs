@@ -6,16 +6,17 @@ using System;
 namespace Task3.DAL {
     public class MockDbService : IDbService {
 
-        private static IEnumerable<Student> _students;
-        
+        private static SqlConnection _sqlConnection;
         static MockDbService() {
+           _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=RGFIsland1738;");
+        }
+        public IEnumerable<Student> GetStudents() {
             var students = new List<Student>();
-            using(var sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=RGFIsland1738;")){//connection string, you have to find yours
+            using(_sqlConnection){//connection string, you have to find yours
                 using(var command = new SqlCommand()){
-                    command.Connection = sqlConnection;
-                    //
+                    command.Connection = _sqlConnection;
                     command.CommandText = "select s.FirstName, s.LastName, s.BirthDate, st.Name as Studies,e.Semester from Student s join Enrollment e on e.IdEnrollment = s.IdEnrollment join Studies st on st.IdStudy = e.IdStudy";
-                    sqlConnection.Open();
+                    _sqlConnection.Open();
                     var reader = command.ExecuteReader();
 
                     while(reader.Read()){
@@ -29,11 +30,24 @@ namespace Task3.DAL {
                     }
                 }
             }
-            _students = students;
+            return students;
         }
-        public IEnumerable<Student> GetStudents() {
-            return _students;
+
+        public List<string> GetSemesterEntries(string studentId){
+            var semesterEntries = new List<string>();
+            using(_sqlConnection){//connection string, you have to find yours
+                using(var command = new SqlCommand()){
+                    command.Connection = _sqlConnection;
+                    command.CommandText = "select Semester from Enrollment, Student where Student.IdEnrollment = Enrollment.IdEnrollment AND Student.IndexNumber = @studentId;";
+                    command.Parameters.AddWithValue("studentId", studentId);
+                    _sqlConnection.Open();
+                    var reader = command.ExecuteReader();
+                    while(reader.Read()){
+                        semesterEntries.Add(reader["Semester"].ToString());
+                    }
+                }
+            }
+            return semesterEntries;
         }
-        
     }
 }

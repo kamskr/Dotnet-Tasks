@@ -30,13 +30,8 @@ namespace Task3.Controllers {
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetStudent(int id) {
-            if (id == 1){
-                return Ok("Kowalski");
-            }else if (id == 2){
-                return Ok("Malewski");
-            }
-            return NotFound("Nie znaleziono studenta");
+        public IActionResult GetStudent(string id) {
+            return Ok(_dbService.GetSemesterEntries(id));
         }
 
         // [HttpPost]
