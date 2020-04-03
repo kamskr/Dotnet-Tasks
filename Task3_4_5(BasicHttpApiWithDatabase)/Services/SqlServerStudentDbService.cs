@@ -18,10 +18,10 @@ namespace Task3.Services{
             //3. Check if enrollment exists -> INSERT
             //4. Check if index does not exists -> INSERT/400
             //5. return Enrollment model
-            
+            int IdEnrollment = 0;
             using(_sqlConnection){//connection string, you have to find yours
                 using(var command = new SqlCommand()){
-                    command.CommandText = "SELECT * FROM Enrollment,Studies WHERE Enrollment.IdStudy = Studies.IdStudy AND Enrollment.Semester=1 AND Studies.Name=@IdStud ORDER BY Enrollment.StartDate";
+                    command.CommandText = "SELECT TOP 1  * FROM Enrollment,Studies WHERE Enrollment.IdStudy = Studies.IdStudy AND Enrollment.Semester=1 AND Studies.Name=@IdStud ORDER BY Enrollment.StartDate";
                     command.Parameters.AddWithValue("IdStud", request.Studies);
                     command.Connection = _sqlConnection;
                     
@@ -35,15 +35,42 @@ namespace Task3.Services{
                         SqlCommand com = new SqlCommand("Insert INTO Studies VALUES (@IdStudy, @StudyName); INSERT INTO Enrollment VALUES (@IdEnrollment, 1, @IdStudy, @Today);", _sqlConnection,tran);
                         com.Parameters.AddWithValue("IdStudy",rnd.Next(10,1000));
                         com.Parameters.AddWithValue("StudyName",request.Studies);
-                        com.Parameters.AddWithValue("IdEnrollment",rnd.Next(10,1000));
+                        IdEnrollment = rnd.Next(10,1000);
+                        com.Parameters.AddWithValue("IdEnrollment",IdEnrollment);
                         com.Parameters.AddWithValue("Today",DateTime.Now);
                         com.ExecuteNonQuery();
                     }else{
+                        while(reader.Read()){
+                            IdEnrollment = (int)reader["IdEnrollment"];
+                        }
                         Console.Write("Exists");
                     }
-                    // while(reader.Read()){
-                    //     Console.Write(reader.GetValue(5));
-                    // }
+                    tran.Commit();
+                }
+
+                using(var command = new SqlCommand()){
+                    command.CommandText = "Select * FROM Student where IndexNumber = @IndexNumber";
+                    command.Parameters.AddWithValue("IndexNumber", request.IndexNumber);
+                    command.Connection = _sqlConnection;
+                    
+                    _sqlConnection.Open();
+                    var tran = _sqlConnection.BeginTransaction();
+                    command.Transaction = tran;
+                    var reader = command.ExecuteReader();
+                    if(!reader.HasRows){
+                        reader.Close();
+                        Random rnd = new Random();
+                        SqlCommand com = new SqlCommand("Insert INTO Student VALUES (@IndexNumber, @FirstName, @LastName, @BirthDate, @IdEnrollment)");
+                        com.Parameters.AddWithValue("IndexNumber",request.IndexNumber);
+                        com.Parameters.AddWithValue("FirstName",request.FirstName);
+                        com.Parameters.AddWithValue("LastName",request.LastName);
+                        com.Parameters.AddWithValue("BirthDate",request.Birthdate);
+                        com.Parameters.AddWithValue("IdEnrollment",IdEnrollment);
+                        com.ExecuteNonQuery();
+                    }else{
+                        throw new Exception();
+                    }
+                
                     tran.Commit();
                 }
             }
