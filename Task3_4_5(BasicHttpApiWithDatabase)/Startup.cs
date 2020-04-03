@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Task3.DAL;
+using Task3.Services;
 
 namespace Task3
 {
@@ -17,7 +17,8 @@ namespace Task3
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IDbService, MockDbService>();
+            services.AddTransient<IStudentsServiceDb, SqlServerStudentDbService>();
+            services.AddTransient<IDbService, MockDbService>();
             services.AddControllers();
         }
 
@@ -33,14 +34,7 @@ namespace Task3
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "/api/students"
-                );
+                endpoints.MapControllers();
             });
         }
     }

@@ -20,15 +20,15 @@ namespace Task3.Controllers {
     public class EnrollmentsController : ControllerBase {
 
         Student student = new Student();
-        private readonly IDbService _dbService;
+        private readonly IStudentsServiceDb _dbService;
 
-        public EnrollmentsController(IDbService dbService){
+        public EnrollmentsController(IStudentsServiceDb dbService){
             _dbService = dbService;
         }
 
         [HttpPost]
         public IActionResult EnrollStudent(EnrollStudentRequest request){
-            _service.EnrollStudent(request);
+            _dbService.EnrollStudent(request);
 
             var response = new EnrollStudentResponse();
             return Ok(response);
@@ -46,7 +46,7 @@ namespace Task3.Controllers {
             //   If Enrollment does not exist -> add new one
 
             //Create stored procedure
-            _service.PromoteStudents(1, "IT");
+            _dbService.PromoteStudents(1, "IT");
 
             return Ok();
         }

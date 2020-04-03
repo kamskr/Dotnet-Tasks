@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication1.DTOs.Requests;
 
-namespace WebApplication1.Services
+namespace Task3.Services
 {
-    public interface IStudentServiceDb
+    public interface IStudentsServiceDb
     {
         void EnrollStudent(EnrollStudentRequest req);
         void PromoteStudents(int semester, string studies);
