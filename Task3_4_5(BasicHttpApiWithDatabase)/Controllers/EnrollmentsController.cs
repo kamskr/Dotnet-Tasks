@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 using System.Data;
 using Task3.Services;
 using Microsoft.Data.SqlClient;
-using WebApplication1.DTOs.Requests;
-using WebApplication1.DTOs.Responses;
+using Task3.DTOs.Requests;
+using Task3.DTOs.Responses;
 
 namespace Task3.Controllers {
 
@@ -28,9 +28,9 @@ namespace Task3.Controllers {
 
         [HttpPost]
         public IActionResult EnrollStudent(EnrollStudentRequest request){
-            _dbService.EnrollStudent(request);
+            
 
-            var response = new EnrollStudentResponse();
+            var response = _dbService.EnrollStudent(request);
             return Ok(response);
         }
     
@@ -46,7 +46,7 @@ namespace Task3.Controllers {
             //   If Enrollment does not exist -> add new one
 
             //Create stored procedure
-            _dbService.PromoteStudents(1, "IT");
+            Enrollment enrollment = _dbService.PromoteStudents(1, "IT");
 
             return Ok();
         }
