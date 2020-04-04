@@ -84,42 +84,26 @@ namespace Task3.Services{
         }
 
         public Enrollment PromoteStudents(int semester, string studies){
+            Console.Write("Promoting");
             var enrollment = new Enrollment();
             using(var _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=RGFIsland1738;")){//connection string, you have to find yours
                 using(var command = new SqlCommand()){
-                    command.CommandText = "Select * from Enrollment, Studies where Enrollment.IdStudy = Studies.IdStudy AND Enrollment.Semester = @Semester AND Studies.Name = @name";
+                    command.CommandText = "EXEC Promote @Name, @Semester";
                     command.Parameters.AddWithValue("Semester", semester);
-                    command.Parameters.AddWithValue("name", studies);
+                    command.Parameters.AddWithValue("Name", studies);
                     command.Connection = _sqlConnection;
                     
                     _sqlConnection.Open();
                     var tran = _sqlConnection.BeginTransaction();
                     command.Transaction = tran;
-                    var reader = command.ExecuteReader();
+                    var reader = command.ExecuteNonQuery();
 
-                    if(!reader.HasRows){
-                        reader.Close();
-                        throw new Exception();
-                    }else{
-                        reader.Close()
-                        SqlCommand com = new SqlCommand("", _sqlConnection,tran);
-                        command.Parameters.AddWithValue("Semester", semester);
-                        command.Parameters.AddWithValue("name", studies);
-                        reader = command.ExecuteReader();
-
-                        while(reader.Read()){
-                            enrollment.IdEnrollment = (int)reader["IdEnrollment"];
-                            enrollment.Semester = (int)reader["Semester"];
-                            enrollment.IdStudy = (int)reader["IdStudy"];
-                            enrollment.StartDate = DateTime.Parse(reader["StartDate"].ToString());
-                        }
-                        Console.Write("Enrollment Exists");
-                    }
-                    
                     tran.Commit();
                 }
             }
 
+            enrollment.Semester = semester + 1;
+            enrollment.StudyName = studies;
             return enrollment;
         }
     }

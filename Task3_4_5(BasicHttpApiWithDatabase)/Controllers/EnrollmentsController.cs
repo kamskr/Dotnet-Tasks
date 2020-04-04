@@ -48,7 +48,7 @@ namespace Task3.Controllers {
             //Create stored procedure
             Enrollment enrollment = _dbService.PromoteStudents(1, "IT");
 
-            return Ok();
+            return Ok(enrollment);
         }
     }
 }
