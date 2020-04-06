@@ -17,7 +17,7 @@ namespace Task3.Services{
             //4. Check if index does not exists -> INSERT/400
             //5. return Enrollment model
             int IdEnrollment = 0;
-            using(var _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=RGFIsland1738;")){//connection string, you have to find yours
+            using(var _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=******;")){//connection string, you have to find yours
                 using(var command = new SqlCommand()){
                     command.CommandText = "SELECT TOP 1  * FROM Enrollment,Studies WHERE Enrollment.IdStudy = Studies.IdStudy AND Enrollment.Semester=1 AND Studies.Name=@IdStud ORDER BY Enrollment.StartDate";
                     command.Parameters.AddWithValue("IdStud", request.Studies);
@@ -47,7 +47,7 @@ namespace Task3.Services{
                     tran.Commit();
                 }
             }
-            using(var _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=RGFIsland1738;")){
+            using(var _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=******;")){
                 using(var command = new SqlCommand()){
                         command.CommandText = "Select * FROM Student where IndexNumber = @IndexNumber";
                         command.Parameters.AddWithValue("IndexNumber", request.IndexNumber);
