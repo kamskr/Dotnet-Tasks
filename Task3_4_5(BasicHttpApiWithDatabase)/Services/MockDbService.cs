@@ -8,10 +8,16 @@ namespace Task3.Services {
 
         private static SqlConnection _sqlConnection;
         static MockDbService() {
-           _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=RGFIsland1738;"); // I was using my local mssql server
+            // I was using my local mssql server
+            initializeConnection();
+        }
+
+        private static void initializeConnection(){
+            _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=*****;");
         }
         public IEnumerable<Student> GetStudents() {
             var students = new List<Student>();
+            initializeConnection();
             using(_sqlConnection){//connection string, you have to find yours
                 using(var command = new SqlCommand()){
                     command.Connection = _sqlConnection;
@@ -34,6 +40,7 @@ namespace Task3.Services {
         }
 
         public List<string> GetSemesterEntries(string studentId){
+            initializeConnection();
             var semesterEntries = new List<string>();
             using(_sqlConnection){//connection string, you have to find yours
                 using(var command = new SqlCommand()){
@@ -48,6 +55,25 @@ namespace Task3.Services {
                 }
             }
             return semesterEntries;
+        }
+
+        public bool ExistsIndexNumber(string index){
+            // sql connection
+            // select count(1) from Student where IndexNumber = index... sth like that
+            // var numberOfStudents = int.Parse(dr.Read().ToString()):
+            // if one -> return true, else false
+            int counter = 0;
+            initializeConnection();
+            using(_sqlConnection){//connection string, you have to find yours
+                using(var command = new SqlCommand()){
+                    command.Connection = _sqlConnection;
+                    command.CommandText = "select count(IndexNumber) FROM Student where IndexNumber = @indexNumber;";
+                    command.Parameters.AddWithValue("indexNumber", index);
+                    _sqlConnection.Open();
+                    counter = int.Parse(command.ExecuteScalar().ToString());
+                }
+            }
+            return true;
         }
     }
 }

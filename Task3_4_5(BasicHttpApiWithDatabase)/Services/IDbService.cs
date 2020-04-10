@@ -5,7 +5,7 @@ namespace Task3.Services {
     public interface IDbService {
         public IEnumerable<Student> GetStudents();
         public List<string> GetSemesterEntries(string studentId);
-        
+        public bool ExistsIndexNumber(string index);
         
     }
 }
