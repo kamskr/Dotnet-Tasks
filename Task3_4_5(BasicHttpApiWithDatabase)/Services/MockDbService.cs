@@ -73,6 +73,9 @@ namespace Task3.Services {
                     counter = int.Parse(command.ExecuteScalar().ToString());
                 }
             }
+            if (counter == 0) {
+                return false;
+            }
             return true;
         }
     }
