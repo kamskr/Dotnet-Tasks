@@ -13,7 +13,7 @@ namespace Task3.Services {
         }
 
         private static void initializeConnection(){
-            _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=*****;");
+            _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=*;");
         }
         public IEnumerable<Student> GetStudents() {
             var students = new List<Student>();

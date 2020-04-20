@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Data;
 using Task3.Services;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Task3.Controllers {
 
@@ -24,6 +25,7 @@ namespace Task3.Controllers {
             _dbService = dbService;
         }
 
+    // [Authorize(Roles, Policy, etc)] this defines what authorization is needed for that end point, if u want to cover all the endpoints, just place it before the whole class
         [HttpGet]
         public IActionResult GetStudents(){
             return Ok(_dbService.GetStudents());

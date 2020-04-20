@@ -1,0 +1,178 @@
+path:/;method:GET;queryString:;body:
+path:/favicon.ico;method:GET;queryString:;body:
+path:/api/students;method:GET;queryString:;body:{
+     "Studies": "IT",
+     "Semester": 1
+     }
+path:/api/students;method:GET;queryString:;body:{
+     "Studies": "IT",
+     "Semester": 1
+     }
+path:/api/students;method:GET;queryString:;body:{
+     "Studies": "IT",
+     "Semester": 1
+     }
+path:/api/students;method:GET;queryString:;body:{
+     "Studies": "IT",
+     "Semester": 1
+     }
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": "1234"
+     }
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": "1234"
+     }
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": "1234"
+     }
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": "1234"
+     }
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": "1234"
+     }
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": "1234"
+     }
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "IT",
+     "Semester": 1
+     }
+path:/api/students;method:GET;queryString:;body:{
+     "login": "IT",
+     "Semester": 1
+     }
+path:/api/enrollments/promote;method:GET;queryString:;body:{
+     "login": "IT",
+     "Semester": 1
+     }
+path:/api/enrollments;method:GET;queryString:;body:{
+     "login": "IT",
+     "Semester": 1
+     }
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "IT",
+     "Semester": 1
+     }
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "IT",
+     "Semester": 1
+     }
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "IT",
+     "Semester": 1
+     }
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:GET;queryString:;body:
+path:/favicon.ico;method:GET;queryString:;body:
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+     "login": "s1234",
+     "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+    "login": "s1234",
+    "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+    "login": "s1234",
+    "password": 1234
+}
+path:/api/students;method:POST;queryString:;body:{
+    "login": "s1234",
+    "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+    "login": "s1234",
+    "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+    "login": "s1234",
+    "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+    "login": "s1234",
+    "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+    "login": "s1234",
+    "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+    "login": "s1234",
+    "password": 1234
+}
+path:/api/enrollments;method:GET;queryString:;body:
+path:/api/enrollments;method:POST;queryString:;body:
+path:/api/enrollments;method:POST;queryString:;body:{
+    "login": "s1234",
+    "password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+    "Login": "s1234",
+    "Password": 1234
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+    "Login": "s1234",
+    "Password": "1234"
+}
+path:/api/enrollments;method:POST;queryString:;body:{
+    "Login": "s1234",
+    "Password": "1234"
+}

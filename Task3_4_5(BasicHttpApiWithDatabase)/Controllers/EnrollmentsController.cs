@@ -12,6 +12,12 @@ using Task3.Services;
 using Microsoft.Data.SqlClient;
 using Task3.DTOs.Requests;
 using Task3.DTOs.Responses;
+using Task3.DTOs;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Task3.Controllers {
 
@@ -26,7 +32,8 @@ namespace Task3.Controllers {
             _dbService = dbService;
         }
 
-        [HttpPost]
+        [Authorize(Roles = "employee")]
+        [HttpPost("enroll")]
         public IActionResult EnrollStudent(EnrollStudentRequest request){
             
 
@@ -34,21 +41,45 @@ namespace Task3.Controllers {
             return Ok(response);
         }
     
+        [Authorize(Roles = "employee")]
         [HttpPost("promote")]
         public IActionResult PromoteStudents(){
-            //Request - name of studies=IT, semester=1
-
-            //1. Check if studies exists
-            //2. Find all the students from studies=IT and semester=1
-            //3. Promote all students to the 2 semester
-            //   Find an enrollment record with studies=IT and semester=2    -> IdEnrollment=10
-            //   Update all the students
-            //   If Enrollment does not exist -> add new one
-
-            //Create stored procedure
             Enrollment enrollment = _dbService.PromoteStudents(1, "IT");
 
             return Ok(enrollment);
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginRequestDto request) {
+
+            var userExists = _dbService.AuthenticateUser(request);
+
+            if(!userExists) {
+                return StatusCode(401);
+            }
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, "1"),
+                new Claim(ClaimTypes.Name, "bob123"),
+                new Claim(ClaimTypes.Role, "employee"),
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("asidnvasdiuhvasdvaspoih"));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken (
+                issuer: "Kamil",
+                audience: "Students",
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(10),
+                signingCredentials: credentials
+            );
+
+            return Ok(new 
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token),
+                refreshToken = Guid.NewGuid()
+            });
         }
     }
 }

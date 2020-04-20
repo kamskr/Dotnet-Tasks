@@ -6,18 +6,21 @@ using System.Threading.Tasks;
 using Task3.DTOs.Requests;
 using Task3.DTOs.Responses;
 using Task3.Models;
+using Task3.DTOs;
 
 namespace Task3.Services{
     public class SqlServerStudentDbService : IStudentsServiceDb {
 
+        private static SqlConnection _sqlConnection;
+
+        private static void initializeConnection(){
+            _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=*;");
+        }
+
         public EnrollStudentResponse EnrollStudent(EnrollStudentRequest request){
-            //1. Validation - OK
-            //2. Check if studies exists -> 404
-            //3. Check if enrollment exists -> INSERT
-            //4. Check if index does not exists -> INSERT/400
-            //5. return Enrollment model
             int IdEnrollment = 0;
-            using(var _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=*****;")){//connection string, you have to find yours
+            initializeConnection();
+            using(_sqlConnection){
                 using(var command = new SqlCommand()){
                     command.CommandText = "SELECT TOP 1  * FROM Enrollment,Studies WHERE Enrollment.IdStudy = Studies.IdStudy AND Enrollment.Semester=1 AND Studies.Name=@IdStud ORDER BY Enrollment.StartDate";
                     command.Parameters.AddWithValue("IdStud", request.Studies);
@@ -47,7 +50,8 @@ namespace Task3.Services{
                     tran.Commit();
                 }
             }
-            using(var _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=*****;")){
+            initializeConnection();
+            using(_sqlConnection){
                 using(var command = new SqlCommand()){
                         command.CommandText = "Select * FROM Student where IndexNumber = @IndexNumber";
                         command.Parameters.AddWithValue("IndexNumber", request.IndexNumber);
@@ -86,7 +90,8 @@ namespace Task3.Services{
         public Enrollment PromoteStudents(int semester, string studies){
             Console.Write("Promoting");
             var enrollment = new Enrollment();
-            using(var _sqlConnection = new SqlConnection(@"Server=localhost,1433\\Catalog=UniversityAPBD;Database=UniversityAPBD;User=SA;Password=*****;")){//connection string, you have to find yours
+            initializeConnection();
+            using(_sqlConnection){
                 using(var command = new SqlCommand()){
                     command.CommandText = "EXEC Promote @Name, @Semester";
                     command.Parameters.AddWithValue("Semester", semester);
@@ -105,6 +110,31 @@ namespace Task3.Services{
             enrollment.Semester = semester + 1;
             enrollment.StudyName = studies;
             return enrollment;
+        }
+
+        public bool AuthenticateUser(LoginRequestDto request) {
+            string testPassword = "";
+
+            initializeConnection();
+            using(_sqlConnection){
+                using(var command = new SqlCommand()){
+                    command.Connection = _sqlConnection;
+                    command.CommandText = "select Password from Student WHERE IndexNumber = @IndexNumber";
+                    command.Parameters.AddWithValue("IndexNumber", request.Login);
+                    _sqlConnection.Open();
+                    var reader = command.ExecuteReader();
+
+                    while(reader.Read()){
+                        testPassword = reader["Password"].ToString();
+                    }
+                }
+            }
+
+            if(testPassword == request.Password && testPassword != ""){
+                return true;
+            }
+            
+            return false;
         }
     }
 }
