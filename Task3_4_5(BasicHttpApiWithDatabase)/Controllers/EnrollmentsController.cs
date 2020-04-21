@@ -57,9 +57,40 @@ namespace Task3.Controllers {
             if(!userExists) {
                 return StatusCode(401);
             }
+            var refreshTokenValue = Guid.NewGuid();
+            var refreshAccessToken = refreshTokenValue.ToString();
+
+            _dbService.StoreRefreshToken(refreshAccessToken, request);
+
+            return Ok(new {
+                token = new JwtSecurityTokenHandler().WriteToken(CreateAccesToken()),
+                refreshToken = refreshAccessToken // saved on client side and database
+            });
+        }
+
+        //endpoint for refreshing the token
+         [HttpPost("refresh-token/{refreshToken}")]
+        public IActionResult RefreshToken(string refreshToken, LoginRequestDto request) {
+            //check in db if refresh token exists
+            Console.Write(refreshToken);
+            if(_dbService.CheckRefreshToken(refreshToken, request)){
+                var refreshTokenValue = Guid.NewGuid();
+                var refreshAccessToken = refreshTokenValue.ToString();
+                _dbService.StoreRefreshToken(refreshAccessToken, request);
+                return Ok(new {
+                token = new JwtSecurityTokenHandler().WriteToken(CreateAccesToken()),
+                //store this refresh token in the database
+                refreshToken = Guid.NewGuid() // saved on client side and database
+                });
+            } else {
+                return StatusCode(401);
+            }
+        }
+
+        private JwtSecurityToken CreateAccesToken(){
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, "1"),
+                new Claim(ClaimTypes.NameIdentifier, "1"), //student id, sth that identifies
                 new Claim(ClaimTypes.Name, "bob123"),
                 new Claim(ClaimTypes.Role, "employee"),
             };
@@ -74,13 +105,9 @@ namespace Task3.Controllers {
                 expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: credentials
             );
-
-            return Ok(new 
-            {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                refreshToken = Guid.NewGuid()
-            });
+            return token;
         }
+
     }
 }
 

@@ -12,7 +12,8 @@ namespace Task3.Services
     {
         EnrollStudentResponse EnrollStudent(EnrollStudentRequest req);
         Models.Enrollment PromoteStudents(int semester, string studies);
-
+        public void StoreRefreshToken(string refreshToken, LoginRequestDto request);
         public bool AuthenticateUser(LoginRequestDto request);
+        public bool CheckRefreshToken(string refreshToken,  LoginRequestDto request);
     }
 }
