@@ -297,7 +297,7 @@ namespace LinqConsoleApp
         /// </summary>
         public void Task10()
         {
-            // var res = (from emp in Emps select(emp.Ename, emp.Job, emp.HireDate)).Union("No Value", null, null);
+            var res = (from emp in Emps select(emp.Ename, emp.Job, emp.HireDate)).Union(Emps.Select(e => (Ename: "No Value", Job: (string)null, HireDate: (DateTime?)null))).ToList();
                foreach (var result in res){
                 Console.Write(result);
             }
