@@ -3,7 +3,7 @@ using Task3.Models;
 
 namespace Task3.Services {
     public interface IDbService {
-        public IEnumerable<Student> GetStudents();
+        public IEnumerable<GetStudentResponse> GetStudents();
         public List<string> GetSemesterEntries(string studentId);
         public bool ExistsIndexNumber(string index);
         

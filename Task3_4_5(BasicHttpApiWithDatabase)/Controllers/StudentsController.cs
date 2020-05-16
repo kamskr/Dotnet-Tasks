@@ -20,17 +20,17 @@ namespace Task3.Controllers {
     public class StudentsController : ControllerBase {
 
         // Student student = new Student();
-        private readonly UniversityAPBDContext universityAPBDContext;
+        private readonly IDbService service;
 
-        public StudentsController(UniversityAPBDContext universityAPBDContext){
-            this.universityAPBDContext = universityAPBDContext; 
+        public StudentsController(IDbService service){
+            this.service = service; 
         }
 
     // [Authorize(Roles, Policy, etc)] this defines what authorization is needed for that end point, if u want to cover all the endpoints, just place it before the whole class
         [HttpGet]
         public IActionResult GetStudents(){
-            var students = universityAPBDContext.Student.ToList();
-            return Ok(students);
+           
+            return Ok(service.GetStudents());
         }
 
         // [HttpGet("{id}")]

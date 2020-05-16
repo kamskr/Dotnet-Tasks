@@ -25,7 +25,7 @@ namespace Task3.Controllers {
     [Route("api/enrollments")]
     public class EnrollmentsController : ControllerBase {
 
-        Student student = new Student();
+        // Student student = new Student();
         private readonly IStudentsServiceDb _dbService;
 
         public EnrollmentsController(IStudentsServiceDb dbService){
