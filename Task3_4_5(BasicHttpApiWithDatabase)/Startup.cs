@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -10,11 +11,18 @@ using Microsoft.IdentityModel.Tokens;
 using Task3.Handlers;
 using Task3.Middlewares;
 using Task3.Services;
+using Task3.Entities;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Task3 {
     public class Startup {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        private IConfiguration Configuration;
+        public Startup(IConfiguration configuration){
+            this.Configuration = configuration;
+        }
         public void ConfigureServices(IServiceCollection services) {
             // services.AddAuthentication("AuthenticationBasic")
             //         .AddScheme<AuthenticationSchemeOptions, BasicAuthHandler>("AuthenticationBasic", null);
@@ -34,6 +42,9 @@ namespace Task3 {
             services.AddTransient<IStudentsServiceDb, SqlServerStudentDbService>();
             services.AddTransient<IDbService, MockDbService>();
             services.AddControllers();
+            services.AddDbContext<UniversityAPBDContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("UniversityAPBDDataBase")));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

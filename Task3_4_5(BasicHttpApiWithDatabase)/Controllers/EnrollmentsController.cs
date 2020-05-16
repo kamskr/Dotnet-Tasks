@@ -35,8 +35,6 @@ namespace Task3.Controllers {
         [Authorize(Roles = "employee")]
         [HttpPost("enroll")]
         public IActionResult EnrollStudent(EnrollStudentRequest request){
-            
-
             var response = _dbService.EnrollStudent(request);
             return Ok(response);
         }
@@ -45,7 +43,6 @@ namespace Task3.Controllers {
         [HttpPost("promote")]
         public IActionResult PromoteStudents(){
             Enrollment enrollment = _dbService.PromoteStudents(1, "IT");
-
             return Ok(enrollment);
         }
 

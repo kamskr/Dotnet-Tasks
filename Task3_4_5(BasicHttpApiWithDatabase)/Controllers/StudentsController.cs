@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
 using Task3.Services;
+using Task3.Entities;
 using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Authorization;
 
@@ -18,23 +19,24 @@ namespace Task3.Controllers {
     [Route("api/students")]
     public class StudentsController : ControllerBase {
 
-        Student student = new Student();
-        private readonly IDbService _dbService;
+        // Student student = new Student();
+        private readonly UniversityAPBDContext universityAPBDContext;
 
-        public StudentsController(IDbService dbService){
-            _dbService = dbService;
+        public StudentsController(UniversityAPBDContext universityAPBDContext){
+            this.universityAPBDContext = universityAPBDContext; 
         }
 
     // [Authorize(Roles, Policy, etc)] this defines what authorization is needed for that end point, if u want to cover all the endpoints, just place it before the whole class
         [HttpGet]
         public IActionResult GetStudents(){
-            return Ok(_dbService.GetStudents());
+            var students = universityAPBDContext.Student.ToList();
+            return Ok(students);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetStudent(string id) {
-            return Ok(_dbService.GetSemesterEntries(id));
-        }
+        // [HttpGet("{id}")]
+        // public IActionResult GetStudent(string id) {
+        //     return Ok(_dbService.GetSemesterEntries(id));
+        // }
 
         // [HttpPost]
         // public IActionResult CreateStudent(Student student) {
