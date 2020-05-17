@@ -11,9 +11,9 @@ namespace Task3.Services
     public interface IStudentsServiceDb
     {
         EnrollStudentResponse EnrollStudent(EnrollStudentRequest req);
-        Models.Enrollment PromoteStudents(int semester, string studies);
-        public void StoreRefreshToken(string refreshToken, LoginRequestDto request);
-        public bool AuthenticateUser(LoginRequestDto request);
-        public bool CheckRefreshToken(string refreshToken,  LoginRequestDto request);
+        bool PromoteStudents(int semester, string studies);
+        // public void StoreRefreshToken(string refreshToken, LoginRequestDto request);
+        // public bool AuthenticateUser(LoginRequestDto request);
+        // public bool CheckRefreshToken(string refreshToken,  LoginRequestDto request);
     }
 }

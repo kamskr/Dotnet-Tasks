@@ -25,7 +25,6 @@ namespace Task3.Controllers {
         public StudentsController(IDbService service){
             this.service = service; 
         }
-
     // [Authorize(Roles, Policy, etc)] this defines what authorization is needed for that end point, if u want to cover all the endpoints, just place it before the whole class
         [HttpGet]
         public IActionResult GetStudents(){

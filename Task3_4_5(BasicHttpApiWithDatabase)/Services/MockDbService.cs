@@ -14,7 +14,7 @@ namespace Task3.Services {
             this.universityAPBDContext = universityAPBDContext; 
         }
         public IEnumerable<GetStudentResponse> GetStudents() {
-             var students = universityAPBDContext.Student.Include(x => x.IdEnrollmentNavigation).ThenInclude(x => x.IdStudyNavigation).Select(student => new GetStudentResponse{
+             var students = universityAPBDContext.Student.Include(x => x.IdEnrollmentNavigation).ThenInclude(x => x.IdStudyNavigation).Select(student => new GetStudentResponse {
                 IndexNumber = student.IndexNumber,
                 FirstName = student.FirstName,
                 LastName = student.LastName,

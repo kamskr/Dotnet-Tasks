@@ -1,6 +1,3 @@
-
-//using Task3.Models;
-
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Task3.Models;
@@ -32,78 +29,77 @@ namespace Task3.Controllers {
             _dbService = dbService;
         }
 
-        [Authorize(Roles = "employee")]
+        // [Authorize(Roles = "employee")]
         [HttpPost("enroll")]
         public IActionResult EnrollStudent(EnrollStudentRequest request){
             var response = _dbService.EnrollStudent(request);
             return Ok(response);
         }
     
-        [Authorize(Roles = "employee")]
+        // [Authorize(Roles = "employee")]
         [HttpPost("promote")]
         public IActionResult PromoteStudents(){
-            Enrollment enrollment = _dbService.PromoteStudents(1, "IT");
-            return Ok(enrollment);
+            return Ok( _dbService.PromoteStudents(1, "IT"));
         }
 
-        [HttpPost]
-        public IActionResult Login(LoginRequestDto request) {
+        // [HttpPost]
+        // public IActionResult Login(LoginRequestDto request) {
 
-            var userExists = _dbService.AuthenticateUser(request);
+        //     var userExists = _dbService.AuthenticateUser(request);
 
-            if(!userExists) {
-                return StatusCode(401);
-            }
-            var refreshTokenValue = Guid.NewGuid();
-            var refreshAccessToken = refreshTokenValue.ToString();
+        //     if(!userExists) {
+        //         return StatusCode(401);
+        //     }
+        //     var refreshTokenValue = Guid.NewGuid();
+        //     var refreshAccessToken = refreshTokenValue.ToString();
 
-            _dbService.StoreRefreshToken(refreshAccessToken, request);
+        //     _dbService.StoreRefreshToken(refreshAccessToken, request);
 
-            return Ok(new {
-                token = new JwtSecurityTokenHandler().WriteToken(CreateAccesToken()),
-                refreshToken = refreshAccessToken // saved on client side and database
-            });
-        }
+        //     return Ok(new {
+        //         token = new JwtSecurityTokenHandler().WriteToken(CreateAccesToken()),
+        //         refreshToken = refreshAccessToken // saved on client side and database
+        //     });
+        // }
 
         //endpoint for refreshing the token
-         [HttpPost("refresh-token/{refreshToken}")]
-        public IActionResult RefreshToken(string refreshToken, LoginRequestDto request) {
-            //check in db if refresh token exists
-            Console.Write(refreshToken);
-            if(_dbService.CheckRefreshToken(refreshToken, request)){
-                var refreshTokenValue = Guid.NewGuid();
-                var refreshAccessToken = refreshTokenValue.ToString();
-                _dbService.StoreRefreshToken(refreshAccessToken, request);
-                return Ok(new {
-                token = new JwtSecurityTokenHandler().WriteToken(CreateAccesToken()),
-                //store this refresh token in the database
-                refreshToken = Guid.NewGuid() // saved on client side and database
-                });
-            } else {
-                return StatusCode(401);
-            }
-        }
+        //  [HttpPost("refresh-token/{refreshToken}")]
+        // public IActionResult RefreshToken(string refreshToken, LoginRequestDto request) {
+        //     //check in db if refresh token exists
+        //     Console.Write(refreshToken);
+        //     if(_dbService.CheckRefreshToken(refreshToken, request)){
+        //         var refreshTokenValue = Guid.NewGuid();
+        //         var refreshAccessToken = refreshTokenValue.ToString();
+        //         _dbService.StoreRefreshToken(refreshAccessToken, request);
+        //         return Ok(new {
+        //         token = new JwtSecurityTokenHandler().WriteToken(CreateAccesToken()),
+        //         //store this refresh token in the database
+        //         refreshToken = Guid.NewGuid() // saved on client side and database
+        //         });
+        //     } else {
+        //         return StatusCode(401);
+        //     }
+        // }
 
-        private JwtSecurityToken CreateAccesToken(){
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, "1"), //student id, sth that identifies
-                new Claim(ClaimTypes.Name, "bob123"),
-                new Claim(ClaimTypes.Role, "employee"),
-            };
+        // private JwtSecurityToken CreateAccesToken(){
+        //     var claims = new[]
+        //     {
+        //         new Claim(ClaimTypes.NameIdentifier, "1"), //student id, sth that identifies
+        //         new Claim(ClaimTypes.Name, "bob123"),
+        //         new Claim(ClaimTypes.Role, "employee"),
+        //     };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("asidnvasdiuhvasdvaspoih"));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        //     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("asidnvasdiuhvasdvaspoih"));
+        //     var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken (
-                issuer: "Kamil",
-                audience: "Students",
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(10),
-                signingCredentials: credentials
-            );
-            return token;
-        }
+        //     var token = new JwtSecurityToken (
+        //         issuer: "Kamil",
+        //         audience: "Students",
+        //         claims: claims,
+        //         expires: DateTime.Now.AddMinutes(10),
+        //         signingCredentials: credentials
+        //     );
+        //     return token;
+        // }
 
     }
 }
