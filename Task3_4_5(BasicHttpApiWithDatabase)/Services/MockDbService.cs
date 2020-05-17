@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using Task3.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using Task3.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Task3.Services {
     public class MockDbService : IDbService {
@@ -25,45 +25,29 @@ namespace Task3.Services {
             return students;
         }
 
-        public List<string> GetSemesterEntries(string studentId){
-            // initializeConnection();
-            // var semesterEntries = new List<string>();
-            // using(_sqlConnection){//connection string, you have to find yours
-            //     using(var command = new SqlCommand()){
-            //         command.Connection = _sqlConnection;
-            //         command.CommandText = "select Semester from Enrollment, Student where Student.IdEnrollment = Enrollment.IdEnrollment AND Student.IndexNumber = @studentId;";
-            //         command.Parameters.AddWithValue("studentId", studentId);
-            //         _sqlConnection.Open();
-            //         var reader = command.ExecuteReader();
-            //         while(reader.Read()){
-            //             semesterEntries.Add(reader["Semester"].ToString());
-            //         }
-            //     }
-            // }
-            // return semesterEntries;
-            return null;
+        public bool AddStudent(Student student){
+            universityAPBDContext.Student.Add(student);
+            universityAPBDContext.SaveChanges();
+            return true;
         }
 
-        public bool ExistsIndexNumber(string index){
-            // sql connection
-            // // select count(1) from Student where IndexNumber = index... sth like that
-            // // var numberOfStudents = int.Parse(dr.Read().ToString()):
-            // // if one -> return true, else false
-            // int counter = 0;
-            // initializeConnection();
-            // using(_sqlConnection){//connection string, you have to find yours
-            //     using(var command = new SqlCommand()){
-            //         command.Connection = _sqlConnection;
-            //         command.CommandText = "select count(IndexNumber) FROM Student where IndexNumber = @indexNumber;";
-            //         command.Parameters.AddWithValue("indexNumber", index);
-            //         _sqlConnection.Open();
-            //         counter = int.Parse(command.ExecuteScalar().ToString());
-            //     }
-            // }
-            // if (counter == 0) {
-            //     return false;
-            // }
-            // return true;
+        public bool UpdateStudent(Student student) {
+            var s = universityAPBDContext.Student.Where(e => e.IndexNumber == student.IndexNumber).First();
+            s.FirstName = student.FirstName;
+            s.LastName = student.LastName;
+            s.BirthDate = student.BirthDate;
+            s.IdEnrollment = student.IdEnrollment;
+            s.Password = student.Password;
+            s.Salt = student.Salt;
+            s.RefreshToken = student.RefreshToken;
+            universityAPBDContext.SaveChanges();
+            return true;
+        }
+
+        public bool DeleteStudent(string studentId) {
+            var s = universityAPBDContext.Student.Where(e => e.IndexNumber == studentId).First();
+            universityAPBDContext.Student.Remove(s);
+            universityAPBDContext.SaveChanges();
             return true;
         }
     }

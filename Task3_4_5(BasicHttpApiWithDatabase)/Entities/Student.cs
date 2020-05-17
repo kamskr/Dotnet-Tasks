@@ -13,7 +13,6 @@ namespace Task3.Entities
         public string Password { get; set; }
         public string Salt { get; set; }
         public string RefreshToken { get; set; }
-
         public virtual Enrollment IdEnrollmentNavigation { get; set; }
     }
 }

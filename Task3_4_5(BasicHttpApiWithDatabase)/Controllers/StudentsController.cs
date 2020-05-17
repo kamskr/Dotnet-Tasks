@@ -29,37 +29,23 @@ namespace Task3.Controllers {
     // [Authorize(Roles, Policy, etc)] this defines what authorization is needed for that end point, if u want to cover all the endpoints, just place it before the whole class
         [HttpGet]
         public IActionResult GetStudents(){
-           
             return Ok(service.GetStudents());
         }
 
-        // [HttpGet("{id}")]
-        // public IActionResult GetStudent(string id) {
-        //     return Ok(_dbService.GetSemesterEntries(id));
-        // }
+        [HttpPost("add")]
+        public IActionResult CreateStudent(Student student) {
+            return Ok(service.AddStudent(student));
+        }
 
-        // [HttpPost]
-        // public IActionResult CreateStudent(Student student) {
-        //     student.IndexNumber = $"s{new Random().Next(1, 20000)}";
-        //     return Ok(student);
-        // }
+        [HttpPost("update")]
+        public IActionResult UpdateStudent(Student student) {
+            return Ok(service.UpdateStudent(student));
+        }
 
-        // [HttpPut("{id}")]
-        // public IActionResult PutStudent(int id) {
-        //     //put is used to update
-        //     Console.WriteLine("Updating student student");
-        //     student.IdStudent = id;
-        //     return Ok("Student Updated!");
-        // }
-
-        // [HttpDelete("{id}")]
-        // public IActionResult DeleteStudent(int id) {
-        //     //put is used to update
-        //     if(student.IdStudent == id){
-        //         student = null;
-        //     }
-        //     return Ok("Student Deleted!");
-        // }
+        [HttpPost("delete")]
+        public IActionResult DeleteStudent(Student student){
+            return Ok(service.DeleteStudent(student.IndexNumber));
+        }
     }
 }
 
