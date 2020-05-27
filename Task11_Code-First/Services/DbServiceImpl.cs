@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using System;
 using Task11.Entities;
 using Microsoft.EntityFrameworkCore;
+using Task11.DTOs.Requests;
 
 namespace Task11.Services
 {
@@ -15,40 +16,49 @@ namespace Task11.Services
         {
             this.context = doctorDbContext;
         }
+
+        public Doctor AddDoctor(DoctorRequest doctorRequest)
+        {
+            var doctor = new Doctor { IdDoctor = doctorRequest.IdDoctor, FirstName = doctorRequest.FirstName, LastName = doctorRequest.LastName, Email = doctorRequest.Email };
+            context.Add(doctor);
+            context.SaveChanges();
+
+            return doctor;
+        }
         public IEnumerable<Doctor> GetDoctors()
         {
             return context.Doctors;
         }
 
-        // public Doctor AddDoctor(AddDoctorRequest addDoctorRequest)
-        // {
-        //     var doctor = new Doctor { IdDoctor = request.IdDoctor, FirstName = request.FirstName, LastName = request.LastName, Email = request.Email };
-        //     _codeFirstContext.Add(doctor);
-        //     _codeFirstContext.SaveChanges();
+        public Doctor UpdateDoctor(DoctorRequest request)
+        {
+            var doctor = context.Doctors.FirstOrDefault(d => d.IdDoctor == request.IdDoctor);
+            if (doctor != null)
+            {
+                doctor.FirstName = request.FirstName;
+                doctor.LastName = request.LastName;
+                doctor.Email = request.Email;
 
-        //     return doctor;
-        // }
+                context.Update(doctor);
+                context.SaveChanges();
 
-        // public bool UpdateStudent(Student student)
-        // {
-        //     var s = universityAPBDContext.Student.Where(e => e.IndexNumber == student.IndexNumber).First();
-        //     s.FirstName = student.FirstName;
-        //     s.LastName = student.LastName;
-        //     s.BirthDate = student.BirthDate;
-        //     s.IdEnrollment = student.IdEnrollment;
-        //     s.Password = student.Password;
-        //     s.Salt = student.Salt;
-        //     s.RefreshToken = student.RefreshToken;
-        //     universityAPBDContext.SaveChanges();
-        //     return true;
-        // }
+                return doctor;
+            }
+            else
+                return null;
+        }
 
-        // public bool DeleteStudent(string studentId)
-        // {
-        //     var s = universityAPBDContext.Student.Where(e => e.IndexNumber == studentId).First();
-        //     universityAPBDContext.Student.Remove(s);
-        //     universityAPBDContext.SaveChanges();
-        //     return true;
-        // }
+        public string DeleteDoctor(int id)
+        {
+            var doctor = context.Doctors.FirstOrDefault(d => d.IdDoctor == id);
+            if (doctor != null)
+            {
+                context.Remove(doctor);
+                context.SaveChanges();
+                return "Doctor successfully deleted";
+            }
+            else
+                return "Doctor not found :(";
+        }
     }
 }

@@ -2,8 +2,9 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Task11.Services;
 using Task11.Entities;
+using Task11.DTOs.Requests;
 
-namespace Task3.Controllers
+namespace Task11.Controllers
 {
 
     [ApiController]
@@ -20,27 +21,27 @@ namespace Task3.Controllers
         }
         // [Authorize(Roles, Policy, etc)] this defines what authorization is needed for that end point, if u want to cover all the endpoints, just place it before the whole class
         [HttpGet]
-        public IActionResult GetStudents()
+        public IActionResult GetDoctor()
         {
-            return Ok(service.GetStudents());
+            return Ok(service.GetDoctors());
         }
 
         [HttpPost("add")]
-        public IActionResult CreateStudent(Student student)
+        public IActionResult AddDoctor(DoctorRequest doctor)
         {
-            return Ok(service.AddStudent(student));
+            return Ok(service.AddDoctor(doctor));
         }
 
-        [HttpPost("update")]
-        public IActionResult UpdateStudent(Student student)
+        [HttpDelete("{id:int}")]
+        public IActionResult DeleteDoctor(int id)
         {
-            return Ok(service.UpdateStudent(student));
+            return Ok(service.DeleteDoctor(id));
         }
 
-        [HttpPost("delete")]
-        public IActionResult DeleteStudent(Student student)
+        [HttpPut]
+        public IActionResult UpdateDoctor(DoctorRequest request)
         {
-            return Ok(service.DeleteStudent(student.IndexNumber));
+            return Ok(service.UpdateDoctor(request));
         }
     }
 }
