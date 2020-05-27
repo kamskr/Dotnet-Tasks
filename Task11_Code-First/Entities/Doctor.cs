@@ -13,5 +13,10 @@ namespace Task11.Entities
         public string LastName { get; set; }
         public string Email { get; set; }
         public ICollection<Prescription> Prescriptions { get; set; }
+
+        public Doctor()
+        {
+            Prescriptions = new HashSet<Prescription>();
+        }
     }
 }

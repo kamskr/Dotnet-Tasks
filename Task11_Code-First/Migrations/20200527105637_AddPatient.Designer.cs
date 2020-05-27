@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Task11.Entities;
 
 namespace Task3.Migrations
 {
     [DbContext(typeof(DoctorDbContext))]
-    partial class DoctorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200527105637_AddPatient")]
+    partial class AddPatient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,29 +41,6 @@ namespace Task3.Migrations
                     b.HasKey("IdDoctor");
 
                     b.ToTable("Doctor");
-
-                    b.HasData(
-                        new
-                        {
-                            IdDoctor = 1,
-                            Email = "marcin.polkowski@gmail.com",
-                            FirstName = "Marcin",
-                            LastName = "Polkowski"
-                        },
-                        new
-                        {
-                            IdDoctor = 2,
-                            Email = "mariusz.ch12@gmail.com",
-                            FirstName = "Mariusz",
-                            LastName = "Chrabąszcz"
-                        },
-                        new
-                        {
-                            IdDoctor = 3,
-                            Email = "cornel@gmail.com",
-                            FirstName = "Konrad",
-                            LastName = "Cornel"
-                        });
                 });
 
             modelBuilder.Entity("Task11.Entities.Medicament", b =>
@@ -86,29 +65,6 @@ namespace Task3.Migrations
                     b.HasKey("IdMedicament");
 
                     b.ToTable("Medicament");
-
-                    b.HasData(
-                        new
-                        {
-                            IdMedicament = 1,
-                            Description = "Na ból gardła",
-                            Name = "Strepsils",
-                            Type = "Lek przeciwzapalny"
-                        },
-                        new
-                        {
-                            IdMedicament = 2,
-                            Description = "Na katar",
-                            Name = "Cirrus",
-                            Type = "Lek przeciwalergiczny"
-                        },
-                        new
-                        {
-                            IdMedicament = 3,
-                            Description = "Na odporność",
-                            Name = "Rutinoskorbin",
-                            Type = "Lek wzmacniający"
-                        });
                 });
 
             modelBuilder.Entity("Task11.Entities.Patient", b =>
@@ -131,43 +87,6 @@ namespace Task3.Migrations
                     b.HasKey("IdPatient");
 
                     b.ToTable("Patient");
-
-                    b.HasData(
-                        new
-                        {
-                            IdPatient = 1,
-                            BirthDate = new DateTime(1998, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Kamil",
-                            LastName = "Sikora"
-                        },
-                        new
-                        {
-                            IdPatient = 2,
-                            BirthDate = new DateTime(1999, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Janek",
-                            LastName = "Witkowski"
-                        },
-                        new
-                        {
-                            IdPatient = 3,
-                            BirthDate = new DateTime(2000, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Maria",
-                            LastName = "Szwedo"
-                        },
-                        new
-                        {
-                            IdPatient = 4,
-                            BirthDate = new DateTime(1998, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Krzysztof",
-                            LastName = "Górny"
-                        },
-                        new
-                        {
-                            IdPatient = 5,
-                            BirthDate = new DateTime(1990, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Maciek",
-                            LastName = "Janiszewski"
-                        });
                 });
 
             modelBuilder.Entity("Task11.Entities.Prescription", b =>
@@ -196,32 +115,6 @@ namespace Task3.Migrations
                     b.HasIndex("IdPatient");
 
                     b.ToTable("Prescription");
-
-                    b.HasData(
-                        new
-                        {
-                            IdPrescription = 1,
-                            Date = new DateTime(2020, 5, 27, 13, 4, 23, 544, DateTimeKind.Local).AddTicks(1950),
-                            DueDate = new DateTime(2020, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IdDoctor = 2,
-                            IdPatient = 1
-                        },
-                        new
-                        {
-                            IdPrescription = 2,
-                            Date = new DateTime(2020, 5, 27, 13, 4, 23, 545, DateTimeKind.Local).AddTicks(8610),
-                            DueDate = new DateTime(2020, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IdDoctor = 2,
-                            IdPatient = 2
-                        },
-                        new
-                        {
-                            IdPrescription = 3,
-                            Date = new DateTime(2020, 5, 27, 13, 4, 23, 545, DateTimeKind.Local).AddTicks(8690),
-                            DueDate = new DateTime(2020, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IdDoctor = 3,
-                            IdPatient = 2
-                        });
                 });
 
             modelBuilder.Entity("Task11.Entities.Prescription_Medicament", b =>
@@ -244,22 +137,6 @@ namespace Task3.Migrations
                     b.HasIndex("IdPrescription");
 
                     b.ToTable("Prescription_Medicaments");
-
-                    b.HasData(
-                        new
-                        {
-                            IdMedicament = 1,
-                            IdPrescription = 1,
-                            Details = "Stosować przez 2 tygodnie",
-                            Dose = 1
-                        },
-                        new
-                        {
-                            IdMedicament = 2,
-                            IdPrescription = 2,
-                            Details = "Stosować raz na 3 godziny",
-                            Dose = 2
-                        });
                 });
 
             modelBuilder.Entity("Task11.Entities.Prescription", b =>
