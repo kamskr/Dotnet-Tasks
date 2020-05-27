@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Task11.Entities;
 using Microsoft.EntityFrameworkCore;
-
+using Task11.Services;
 
 namespace Task11
 {
@@ -30,6 +30,8 @@ namespace Task11
             {
                 options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]);
             });
+            services.AddTransient<IDbService, DbServiceImpl>();
+            services.AddControllers();
             services.AddControllers();
         }
 
