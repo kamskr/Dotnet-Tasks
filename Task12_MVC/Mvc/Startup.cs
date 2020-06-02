@@ -29,7 +29,7 @@ namespace Mvc
         {
             services.AddControllersWithViews();
             services.AddDbContext<MvcMovieContext>(options =>
-            options.UseSqlite(Configuration.GetConnectionString("MvcMovieContext")));
+            options.UseSqlite(Configuration.GetConnectionString("MovieContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
